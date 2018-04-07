@@ -1,0 +1,19 @@
+back/target/
+!back/.mvn/wrapper/maven-wrapper.jar
+front/node_modules/
+front/bower_components/
+
+
+### STS ###
+back/.apt_generated
+back/.classpath
+back/.factorypath
+back/.project
+back/.settings
+back/.springBeans
+
+front/.classpath
+front/.project
+
+
+

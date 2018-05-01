@@ -12,3 +12,11 @@ body {
 .custom-title {
   margin: 20px 0;
 }
+
+.custom-checkbox {
+  padding-bottom: 1rem;
+}
+
+.inline-block {
+  display: inline-block;
+}

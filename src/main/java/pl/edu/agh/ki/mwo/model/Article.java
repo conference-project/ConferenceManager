@@ -27,8 +27,6 @@ public class Article implements java.io.Serializable {
 	
 	@Column
 	private boolean isAprovedByReviewer; // to do: zmien na null-able bool
-		
-
 
 	public long getId() {
 		return id;

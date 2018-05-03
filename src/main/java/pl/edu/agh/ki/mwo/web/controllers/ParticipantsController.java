@@ -15,7 +15,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 public class ParticipantsController {
 
     @RequestMapping(value="/Participants")
-    public String listSchools(Model model, HttpSession session) {    	
+    public String listParticipants(Model model, HttpSession session) {    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
 
@@ -30,6 +30,21 @@ public class ParticipantsController {
     		return "redirect:/Login";
     	
         return "participantForm";    
+    }
+    
+    @RequestMapping(value="/DeleteParticipant")
+    public String deleteParticipant(
+    		@RequestParam(value="participantId", required=true) String participantId,
+    		Model model, HttpSession session
+    		) {
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	
+    	DatabaseConnector.getInstance().deleteParticipant(participantId);    	
+       	model.addAttribute("participants", DatabaseConnector.getInstance().getParticipants());
+    	model.addAttribute("message", "Uczestnik został usunięty");
+         	
+    	return "participantsList";
     }
 
 /*    @RequestMapping(value="/CreateSchool", method=RequestMethod.POST)

@@ -42,12 +42,26 @@ public class DatabaseConnector {
 	}
 
 	public Participant getParticipant(String participantId) {
-		String hql = "FROM Participant S WHERE S.id=" + participantId;
+		String hql = "FROM Participant P WHERE P.id=" + participantId;
 		Query query = session.createQuery(hql);
 		List<Participant> results = query.list();
 		return results.get(0);
 	}
-
+	
+	public void addParticipant(Participant participant) {
+		Transaction transaction = session.beginTransaction();
+		session.save(participant);
+		transaction.commit();
+	}
+	
+	public void deleteParticipant(String participantId) {
+		String hql = "FROM Participant P WHERE P.id=" + participantId;
+		Query query = session.createQuery(hql);
+		List<Participant> results = query.list();
+		Transaction transaction = session.beginTransaction();
+		session.delete(results.get(0));
+		transaction.commit();
+	}
 	
 	public Iterable<Article> getArticles() {
 		String hql = "FROM Article";
@@ -56,6 +70,34 @@ public class DatabaseConnector {
 
 		return articles;
 	}
+	
+	public Article getArticle(String articleId) {
+		String hql = "FROM Article A WHERE A.id=" + articleId;
+		Query query = session.createQuery(hql);
+		List<Article> results = query.list();
+		return results.get(0);
+	}
+	
+	public void addArticle(Article article, String participantId) {
+		Transaction transaction = session.beginTransaction();
+		String hql = "FROM Participant P WHERE P.id=" + participantId;
+		Query query = session.createQuery(hql);
+		List<Participant> results = query.list();
+		Participant author = results.get(0);
+		author.addArticle(article);
+		session.save(author);
+		transaction.commit();
+	}
+	
+	public void deleteArticle(String articleId) {
+		String hql = "FROM Article A WHERE A.id=" + articleId;
+		Query query = session.createQuery(hql);
+		List<Article> results = query.list();
+		Transaction transaction = session.beginTransaction();
+		session.delete(results.get(0));
+		transaction.commit();
+	}
+	
 /*	public void addSchool(Participant school) {
 		Transaction transaction = session.beginTransaction();
 		session.save(school);

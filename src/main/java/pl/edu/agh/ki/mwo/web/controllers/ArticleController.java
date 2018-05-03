@@ -16,7 +16,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 public class ArticleController {
 
     @RequestMapping(value="/Articles")
-    public String listSchoolClasses(Model model, HttpSession session) {    	
+    public String listArticles(Model model, HttpSession session) {    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
 
@@ -25,6 +25,21 @@ public class ArticleController {
         return "articlesList";    
     }
     
+    @RequestMapping(value="/DeleteArticle")
+    public String deleteArticle(
+    		@RequestParam(value="articleId", required=true) String articleId,
+    		Model model,HttpSession session
+    		) {
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	
+    	DatabaseConnector.getInstance().deleteArticle(articleId);    	
+       	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
+    	model.addAttribute("message", "Artykuł został usunięty");
+         	
+    	return "articlesList";
+    }
+        
 /*	@RequestMapping(value="/AddArticles")
     public String displayAddSchoolClassForm(Model model, HttpSession session) {    	
 		if (session.getAttribute("userLogin") == null)

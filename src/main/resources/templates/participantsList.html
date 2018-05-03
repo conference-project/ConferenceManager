@@ -31,7 +31,7 @@
         
         <td>
           <form class="inline-block" action="DeleteParticipant" method="DELETE">
-            <input type="hidden" name="studentId" th:value="${participant.id}"/>
+            <input type="hidden" name="participantId" th:value="${participant.id}"/>
             <button class="btn btn-warning" type="submit">X</button>
           </form>
           <form class="inline-block" action="EditParticipant" method="POST">

@@ -16,7 +16,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 public class ArticleController {
 
     @RequestMapping(value="/Articles")
-    public String listSchoolClasses(Model model, HttpSession session) {    	
+    public String listArticles(Model model, HttpSession session) {    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
 

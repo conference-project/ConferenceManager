@@ -56,6 +56,14 @@ public class DatabaseConnector {
 
 		return articles;
 	}
+	
+	public Article getArticle(int articleId) {
+		String hql = " FROM Article A WHERE A.id="+articleId;
+		Query query = session.createQuery(hql);
+		List<Article> results = query.list();
+		return results.get(0);
+	}
+	
 /*	public void addSchool(Participant school) {
 		Transaction transaction = session.beginTransaction();
 		session.save(school);
@@ -72,6 +80,8 @@ public class DatabaseConnector {
 		}
 		transaction.commit();
 	}*/
+
+
 
 /*	public void editSchool(String schoolId, String name, String surname) {
 		String hql = "FROM School S WHERE S.id=" + schoolId;

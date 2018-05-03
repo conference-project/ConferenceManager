@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<body>
+<span layout:fragment="pageTitle"> - Uczestnicy </span>
+
+<div layout:fragment="content">
+  <div th:include="menuFragmentForEditor"></div>
+  <br/><br/>
+  <div class="container">
+    <table border="1" cellpadding="5" class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Id</th>
+        <th>tytul</th>
+        <th>temat</th>
+        <th>zalacznik</th>
+        <th>uczestnik</th>
+        <th>email</th>
+        <th>zaakceptowana</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="article: ${articles}">
+        <td><span th:text="${article.id}"/></td>
+        <td><span th:text="${article.title}"/></td>
+        <td><span th:text="${article.topic}"/></td>
+        <td><span th:text="${article.attachment}"/></td>
+        <td><span th:text="${article.participant}"/></td>
+        <td><span th:text="${article.participant.email}"/></td>
+        <td>
+          <input type="checkbox" th:checked="${article.isAprovedByReviewer}" disabled="disabled"/>
+        </td>
+      
+        <td>
+          <form action="DeleteArticle" method="DELETE">
+            <input type="hidden" name="articleId" th:value="${article.id}"/>
+            <button class="btn btn-warning" type="submit">X</button>
+          </form>
+      
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <br/><a class="btn btn-primary" href='AddArticle'>dodaj</a><br/><br/>
+  </div>
+</div>
+
+</body>
+</html>

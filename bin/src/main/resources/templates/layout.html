@@ -1,0 +1,31 @@
+<html style="text-align:center;" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>System do obslugi konferencji</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+<link rel="stylesheet" type="text/css" href="../styles/styles.css" th:ref="@{/styles/styles.css}"/>
+</head>
+
+<body>
+<div align="center">
+  
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <h2 class="navbar-brand"> System obsługi konferencji <span id="the-title" layout:fragment="pageTitle" /> </h2>
+      <span class="navbar-text">Zalogowany jako: <span th:text="${session.userLogin}" /> </span>
+      <span class="navbar-text"><span th:text="${message}" style='color:#c00' /> </span>
+    </div>
+  </nav>
+  
+  <div id="the-content" layout:fragment="content">
+    Static content - never visible
+  </div>
+
+</div>
+<br/>	<br/>	<br/>	<br/>
+<hr />
+<div class="cotainer" style="text-align: center">
+  (c) Grupa 3.
+</div>
+</body>
+</html>

@@ -90,10 +90,15 @@ public class DatabaseConnector {
 	}
 	
 	public void deleteArticle(String articleId) {
+		// potencjalnie trzeba dbać o to, by właściciel usuwanego artykułu miał zmieniany doIHaveArticle
 		String hql = "FROM Article A WHERE A.id=" + articleId;
 		Query query = session.createQuery(hql);
 		List<Article> results = query.list();
 		Transaction transaction = session.beginTransaction();
+		/*if (results.get(0).getParticipant().getArticles().size() <= 1) {
+			results.get(0).getParticipant().setDoIHaveArticle(false);
+			session.save(results.get(0).getParticipant());
+		}*/
 		session.delete(results.get(0));
 		transaction.commit();
 	}

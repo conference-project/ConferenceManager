@@ -24,12 +24,35 @@ public class ParticipantsController {
         return "participantsList";    
     }
     
-    @RequestMapping(value="/AddParticipant")
+    /*@RequestMapping(value="/AddParticipant")
     public String displayAddSchoolForm(Model model, HttpSession session) {    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
     	
         return "participantForm";    
+    }*/
+    
+    @RequestMapping(value="/AddParticipant", method=RequestMethod.POST)
+    public String addParticipant(
+    		@RequestParam(value="participantId", required=false) String participantId,
+    		@RequestParam(value="participantName", required=false) String participantName,
+    		@RequestParam(value="participantSurname", required=false) String participantSurname,
+    		@RequestParam(value="participantUniversity", required=false) String participantUniversity,
+    		@RequestParam(value="participantEmail", required=false) String participantEmail,
+    		Model model, HttpSession session) {
+    	
+    	Participant participant = new Participant();
+    	participant.setName(participantName);
+    	participant.setSurname(participantSurname);
+    	participant.setUniversity(participantUniversity);
+    	participant.setEmail(participantEmail);
+    	participant.setDoIHaveArticle(false);
+    	
+    	DatabaseConnector.getInstance().addParticipant(participant);    	
+       	model.addAttribute("participants", DatabaseConnector.getInstance().getParticipants());
+    	model.addAttribute("message", "Nowy uczestnik został dodany");
+         	
+    	return "AddArticle";
     }
     
     @RequestMapping(value="/DeleteParticipant")

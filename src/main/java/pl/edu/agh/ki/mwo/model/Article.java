@@ -21,7 +21,7 @@ public class Article implements java.io.Serializable {
 	@Column
 	private String attachment;
 	
-	@ManyToOne //(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="participant_id")
 	private Participant participant;
 	

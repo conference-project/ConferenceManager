@@ -1,19 +1,25 @@
-back/target/
-!back/.mvn/wrapper/maven-wrapper.jar
-front/node_modules/
-front/bower_components/
+*.class
 
+# Package Files
+*.jar
+*.war
+*.ear
 
-### STS ###
-back/.apt_generated
-back/.classpath
-back/.factorypath
-back/.project
-back/.settings
-back/.springBeans
+# Eclipse
+.classpath
+.project
+.settings/
 
-front/.classpath
-front/.project
+# Intellij
+.idea/
+*.iml
+*.iws
 
+# Mac
+.DS_Store
 
+# Maven
+log/
+target
 
+.metadata/

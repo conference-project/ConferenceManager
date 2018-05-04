@@ -39,6 +39,7 @@ public class ParticipantsController {
     		@RequestParam(value="participantSurname", required=false) String participantSurname,
     		@RequestParam(value="participantUniversity", required=false) String participantUniversity,
     		@RequestParam(value="participantEmail", required=false) String participantEmail,
+    		@RequestParam(value="isAuthor", required=false) boolean isAuthor,
     		Model model, HttpSession session) {
     	
     	Participant participant = new Participant();
@@ -51,8 +52,13 @@ public class ParticipantsController {
     	DatabaseConnector.getInstance().addParticipant(participant);    	
        	model.addAttribute("participants", DatabaseConnector.getInstance().getParticipants());
     	model.addAttribute("message", "Nowy uczestnik został dodany");
-         	
-    	return "AddArticle";
+        
+    	if (isAuthor) {
+    		return "AddArticle";
+    	}
+    	else {
+    		return "main";
+    	}
     }
     
     @RequestMapping(value="/DeleteParticipant")

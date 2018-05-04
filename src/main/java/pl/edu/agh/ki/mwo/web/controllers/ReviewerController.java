@@ -16,7 +16,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 @Controller 
 public class ReviewerController {
 
-    @RequestMapping(value="/Review/{articleId}")
+    @RequestMapping(value="/Review/{articleId}/")
     public String listArticleForReviewer(Model model, HttpSession session, @PathVariable(value = "articleId") int articleId) {    	
 
     	model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
@@ -24,5 +24,17 @@ public class ReviewerController {
         return "articleRevision";    
     }
 
+/*    @RequestMapping(value="/AcceptArticle", method=RequestMethod.POST)
+    public String deleteSchoolClass(@RequestParam(value="schoolClassId", required=true) String schoolClassId,
+    		Model model, HttpSession session) {    	
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	
+    	DatabaseConnector.getInstance().deleteSchoolClass(schoolClassId);    	
+       	model.addAttribute("schoolsClasses", DatabaseConnector.getInstance().getSchoolClasses());
+    	model.addAttribute("message", "klasa została usunięta");
+         	
+    	return "schoolsClassesList";
+    }*/
 
 }

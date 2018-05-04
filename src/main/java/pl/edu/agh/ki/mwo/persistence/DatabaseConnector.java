@@ -54,6 +54,23 @@ public class DatabaseConnector {
 		transaction.commit();
 	}
 	
+	public void updateParticipant(String participantId,
+								  String name,
+								  String surname,
+								  String university,
+								  String email,
+								  boolean doIHaveArticle) {
+		Participant participant = getParticipant(participantId);
+		Transaction transaction = session.beginTransaction();
+		participant.setName(name);
+		participant.setSurname(surname);
+		participant.setUniversity(university);
+		participant.setEmail(email);
+		participant.setDoIHaveArticle(doIHaveArticle);
+		session.save(participant);
+		transaction.commit();
+	}
+	
 	public void deleteParticipant(String participantId) {
 		String hql = "FROM Participant P WHERE P.id=" + participantId;
 		Query query = session.createQuery(hql);

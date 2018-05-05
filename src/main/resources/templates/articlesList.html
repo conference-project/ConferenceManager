@@ -2,7 +2,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <body>
-<span layout:fragment="pageTitle"> - Uczestnicy </span>
+<span layout:fragment="pageTitle"> - Artykuły </span>
 
 <div layout:fragment="content">
   <div th:include="menuFragmentForEditor"></div>
@@ -34,9 +34,13 @@
         </td>
       
         <td>
-          <form action="DeleteArticle" method="DELETE">
+          <form class="inline-block" action="DeleteArticle" method="DELETE">
             <input type="hidden" name="articleId" th:value="${article.id}"/>
             <button class="btn btn-warning" type="submit">X</button>
+          </form>
+          <form class="inline-block" action="UpdateArticle" method="POST">
+            <input type="hidden" name="articleId" th:value="${article.id}"/>
+            <button class="btn btn-info" type="submit">Edit</button>
           </form>
       
         </td>

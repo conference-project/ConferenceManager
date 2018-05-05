@@ -15,7 +15,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 @Controller //konieczna adnotacja oznaczjaca obiekt kontrolera od strony widoku
 public class ArticleController {
 
-    @RequestMapping(value="/Articles")
+    @RequestMapping(value="/Articles", method=RequestMethod.GET)
     public String listArticles(Model model, HttpSession session) {    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
@@ -25,11 +25,44 @@ public class ArticleController {
         return "articlesList";    
     }
     
+    @RequestMapping(value="/UpdateArticle", method=RequestMethod.POST)
+    public String displayUpdateArticleForm(@RequestParam(value="articleId", required=false) String articleId,
+    									   Model model, HttpSession session) {
+    	
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	
+    	model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
+    	//chyba
+    	model.addAttribute("participants", DatabaseConnector.getInstance().getParticipants());
+    	
+    	return "updateArticle";	
+    }
+    
+    @RequestMapping(value="/EditArticle", method=RequestMethod.POST)
+    public String updateArticle(
+    		@RequestParam(value="articleId", required=false) String articleId,
+    		@RequestParam(value="articleTitle", required=false) String articleTitle,
+    		@RequestParam(value="articleTopic", required=false) String articleTopic,
+    		@RequestParam(value="participantId", required=false) String participantId,
+    		Model model, HttpSession session) {
+    	    	
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	
+    	DatabaseConnector.getInstance().updateArticle(articleId, articleTitle, articleTopic, participantId);;    	
+       	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
+    	model.addAttribute("message", "Artykuł został zmieniony");
+    	
+    	return "articlesList";
+    }
+    
     @RequestMapping(value="/DeleteArticle")
     public String deleteArticle(
     		@RequestParam(value="articleId", required=true) String articleId,
     		Model model,HttpSession session
     		) {
+    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
     	

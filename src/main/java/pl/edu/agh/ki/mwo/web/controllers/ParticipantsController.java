@@ -16,6 +16,7 @@ public class ParticipantsController {
 
     @RequestMapping(value="/Participants", method=RequestMethod.GET)
     public String listParticipants(Model model, HttpSession session) {    	
+    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
 
@@ -26,21 +27,12 @@ public class ParticipantsController {
     
     /*@RequestMapping(value="/AddParticipant")
     public String displayAddSchoolForm(Model model, HttpSession session) {    	
+    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
     	
         return "participantForm";    
     }*/
-    
-    @RequestMapping(value="/UpdateParticipant", method=RequestMethod.POST)
-    public String displayUpdateParticipantForm(@RequestParam(value="participantId", required=false) String participantId,
-    										   Model model, HttpSession session) {
-    	if (session.getAttribute("userLogin") == null)
-    		return "redirect:/Login";
-    	
-    	model.addAttribute("participant", DatabaseConnector.getInstance().getParticipant(participantId));
-    	return "updateParticipant";	
-    }
     
     @RequestMapping(value="/AddParticipant", method=RequestMethod.POST)
     public String addParticipant(
@@ -71,6 +63,17 @@ public class ParticipantsController {
     	}
     }
     
+    @RequestMapping(value="/UpdateParticipant", method=RequestMethod.POST)
+    public String displayUpdateParticipantForm(@RequestParam(value="participantId", required=false) String participantId,
+    										   Model model, HttpSession session) {
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	
+    	model.addAttribute("participant", DatabaseConnector.getInstance().getParticipant(participantId));
+    	
+    	return "updateParticipant";	
+    }
+    
     @RequestMapping(value="/EditParticipant", method=RequestMethod.POST)
     public String updateParticipant(
     		@RequestParam(value="participantId", required=false) String participantId,
@@ -85,7 +88,7 @@ public class ParticipantsController {
     	    	
     	DatabaseConnector.getInstance().updateParticipant(participantId, participantName, participantSurname, participantUniversity, participantEmail);    	
        	model.addAttribute("participants", DatabaseConnector.getInstance().getParticipants());
-    	model.addAttribute("message", "Uczestnik został zmieniona");
+    	model.addAttribute("message", "Uczestnik został zmieniony");
     	
     	return "participantsList";
     }
@@ -95,6 +98,7 @@ public class ParticipantsController {
     		@RequestParam(value="participantId", required=true) String participantId,
     		Model model, HttpSession session
     		) {
+    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
     	

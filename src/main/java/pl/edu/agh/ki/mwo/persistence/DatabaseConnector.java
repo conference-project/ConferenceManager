@@ -42,44 +42,51 @@ public class DatabaseConnector {
 	}
 
 	public Participant getParticipant(String participantId) {
+		
 		String hql = "FROM Participant P WHERE P.id=" + participantId;
 		Query query = session.createQuery(hql);
 		List<Participant> results = query.list();
+		
 		return results.get(0);
 	}
 	
 	public void addParticipant(Participant participant) {
+		
 		Transaction transaction = session.beginTransaction();
 		session.save(participant);
 		transaction.commit();
 	}
 	
 	public void updateParticipant(String participantId,
-								  String name,
-								  String surname,
-								  String university,
-								  String email) {
+								  String participantName,
+								  String participantSurname,
+								  String participantUniversity,
+								  String participantEmail) {
 
 		Participant participant = getParticipant(participantId);
-		participant.setName(name);
-		participant.setSurname(surname);
-		participant.setUniversity(university);
-		participant.setEmail(email);
+		participant.setName(participantName);
+		participant.setSurname(participantSurname);
+		participant.setUniversity(participantUniversity);
+		participant.setEmail(participantEmail);
+		
 		Transaction transaction = session.beginTransaction();
 		session.update(participant);
 		transaction.commit();
 	}
 	
 	public void deleteParticipant(String participantId) {
+		
 		String hql = "FROM Participant P WHERE P.id=" + participantId;
 		Query query = session.createQuery(hql);
 		List<Participant> results = query.list();
+		
 		Transaction transaction = session.beginTransaction();
 		session.delete(results.get(0));
 		transaction.commit();
 	}
 	
 	public Iterable<Article> getArticles() {
+		
 		String hql = "FROM Article";
 		Query query = session.createQuery(hql);
 		List articles = query.list();
@@ -88,20 +95,40 @@ public class DatabaseConnector {
 	}
 	
 	public Article getArticle(String articleId) {
+		
 		String hql = "FROM Article A WHERE A.id=" + articleId;
 		Query query = session.createQuery(hql);
 		List<Article> results = query.list();
+		
 		return results.get(0);
 	}
 	
 	public void addArticle(Article article, String participantId) {
-		Transaction transaction = session.beginTransaction();
+		// Trzeba zadbać o to, żeby przy dodaniu artykułu doIHaveArticle zmieniało się na true
 		String hql = "FROM Participant P WHERE P.id=" + participantId;
 		Query query = session.createQuery(hql);
 		List<Participant> results = query.list();
 		Participant author = results.get(0);
 		author.addArticle(article);
+		
+		Transaction transaction = session.beginTransaction();
 		session.save(author);
+		transaction.commit();
+	}
+	
+	public void updateArticle(String articleId,
+			  				  String articleTitle,
+			  				  String articleTopic,
+			  				  String participantId) {
+		// Przy przepinaniu artykułów też trzeba dbać o zmienną doIHaveArticle
+		Article article = getArticle(articleId);
+		article.setTitle(articleTitle);
+		article.setTopic(articleTopic);
+		Participant author = getParticipant(participantId);
+		article.setParticipant(author);
+
+		Transaction transaction = session.beginTransaction();
+		session.update(article);
 		transaction.commit();
 	}
 	
@@ -110,6 +137,7 @@ public class DatabaseConnector {
 		String hql = "FROM Article A WHERE A.id=" + articleId;
 		Query query = session.createQuery(hql);
 		List<Article> results = query.list();
+		
 		Transaction transaction = session.beginTransaction();
 		/*if (results.get(0).getParticipant().getArticles().size() <= 1) {
 			results.get(0).getParticipant().setDoIHaveArticle(false);

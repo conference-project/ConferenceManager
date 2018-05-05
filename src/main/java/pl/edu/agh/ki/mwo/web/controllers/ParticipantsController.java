@@ -14,7 +14,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 @Controller //konieczna adnotacja oznaczjaca obiekt kontrolera od strony widoku
 public class ParticipantsController {
 
-    @RequestMapping(value="/Participants")
+    @RequestMapping(value="/Participants", method=RequestMethod.GET)
     public String listParticipants(Model model, HttpSession session) {    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
@@ -31,6 +31,16 @@ public class ParticipantsController {
     	
         return "participantForm";    
     }*/
+    
+    @RequestMapping(value="/UpdateParticipant", method=RequestMethod.POST)
+    public String displayUpdateParticipantForm(@RequestParam(value="participantId", required=false) String participantId,
+    										   Model model, HttpSession session) {
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	
+    	model.addAttribute("participant", DatabaseConnector.getInstance().getParticipant(participantId));
+    	return "updateParticipant";	
+    }
     
     @RequestMapping(value="/AddParticipant", method=RequestMethod.POST)
     public String addParticipant(
@@ -59,6 +69,25 @@ public class ParticipantsController {
     	else {
     		return "main";
     	}
+    }
+    
+    @RequestMapping(value="/EditParticipant", method=RequestMethod.POST)
+    public String updateParticipant(
+    		@RequestParam(value="participantId", required=false) String participantId,
+    		@RequestParam(value="participantName", required=false) String participantName,
+    		@RequestParam(value="participantSurname", required=false) String participantSurname,
+    		@RequestParam(value="participantUniversity", required=false) String participantUniversity,
+    		@RequestParam(value="participantEmail", required=false) String participantEmail,
+    		Model model, HttpSession session) {
+    	    	
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	    	
+    	DatabaseConnector.getInstance().updateParticipant(participantId, participantName, participantSurname, participantUniversity, participantEmail);    	
+       	model.addAttribute("participants", DatabaseConnector.getInstance().getParticipants());
+    	model.addAttribute("message", "Uczestnik został zmieniona");
+    	
+    	return "participantsList";
     }
     
     @RequestMapping(value="/DeleteParticipant")

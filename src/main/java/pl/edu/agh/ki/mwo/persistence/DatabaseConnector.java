@@ -58,16 +58,15 @@ public class DatabaseConnector {
 								  String name,
 								  String surname,
 								  String university,
-								  String email,
-								  boolean doIHaveArticle) {
+								  String email) {
+
 		Participant participant = getParticipant(participantId);
-		Transaction transaction = session.beginTransaction();
 		participant.setName(name);
 		participant.setSurname(surname);
 		participant.setUniversity(university);
 		participant.setEmail(email);
-		participant.setDoIHaveArticle(doIHaveArticle);
-		session.save(participant);
+		Transaction transaction = session.beginTransaction();
+		session.update(participant);
 		transaction.commit();
 	}
 	

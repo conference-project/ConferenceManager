@@ -34,8 +34,8 @@
             <input type="hidden" name="participantId" th:value="${participant.id}"/>
             <button class="btn btn-warning" type="submit">X</button>
           </form>
-          <form class="inline-block" action="EditParticipant" method="POST">
-            <input type="hidden" name="studentId" th:value="${participant.id}"/>
+          <form class="inline-block" action="UpdateParticipant" method="POST">
+            <input type="hidden" name="participantId" th:value="${participant.id}"/>
             <button class="btn btn-info" type="submit">Edit</button>
           </form>
         </td>

@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+ 
+<head><title>Edycja danych uczestnika</title></head>
+<body>
+
+<div layout:fragment="content">
+  <div th:include="menuFragmentForEditor" ></div>
+  
+  <div class="container">
+  <h2 class="custom-title">Edycja danych uczestnika</h2>
+  	<form  class="border border-primary rounded custom-form" action="EditParticipant" method="POST">
+  	  <input type="hidden" name="participantId" th:value="${participant.id}" />  	
+  	  <div class="form-group">
+        <label for="name">Imię</label>
+        <input type="text" name="participantName" th:value="${participant.name}" class="form-control" id="name"/>
+      </div>
+      <div class="form-group">
+        <label for="name">Nazwisko</label>
+        <input type="text" name="participantSurname" th:value="${participant.surname}" class="form-control" id="surname"/>
+      </div>
+      <div class="form-group">
+        <label for="name">Uczelnia</label>
+        <input type="text" name="participantUniversity" th:value="${participant.university}" class="form-control" id="school"/>
+      </div>
+      <div class="form-group">
+        <label for="name">E-mail</label>
+        <input type="text" name="participantEmail" th:value="${participant.email}" class="form-control" id="email"/>
+      </div>
+      <button type="submit" class="btn btn-primary">Edytuj dane uczestnika</button>
+  	</form>
+  </div>
+</div>
+
+</body>
+</html>

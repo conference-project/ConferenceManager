@@ -25,6 +25,24 @@ public class ArticleController {
         return "articlesList";    
     }
     
+    @RequestMapping(value="/AddArticle", method=RequestMethod.POST)
+    public String addArticle(
+    		@RequestParam(value="articleTitle", required=false) String articleTitle,
+    		@RequestParam(value="articleTopic", required=false) String articleTopic,
+    		@RequestParam(value="participantId", required=false) String participantId,
+    		Model model, HttpSession session) {
+    	
+    	Article article = new Article();
+    	article.setTitle(articleTitle);
+    	article.setTopic(articleTopic);
+
+    	DatabaseConnector.getInstance().addArticle(article, participantId);    	
+       	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
+    	model.addAttribute("message", "Nowy artykuł został dodany");
+    	
+    	return "main";
+    }
+    
     @RequestMapping(value="/UpdateArticle", method=RequestMethod.POST)
     public String displayUpdateArticleForm(@RequestParam(value="articleId", required=false) String articleId,
     									   Model model, HttpSession session) {

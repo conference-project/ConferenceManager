@@ -36,7 +36,6 @@ public class ParticipantsController {
     
     @RequestMapping(value="/AddParticipant", method=RequestMethod.POST)
     public String addParticipant(
-    		@RequestParam(value="participantId", required=false) String participantId,
     		@RequestParam(value="participantName", required=false) String participantName,
     		@RequestParam(value="participantSurname", required=false) String participantSurname,
     		@RequestParam(value="participantUniversity", required=false) String participantUniversity,
@@ -52,11 +51,11 @@ public class ParticipantsController {
     	participant.setDoIHaveArticle(false);
     	
     	DatabaseConnector.getInstance().addParticipant(participant);    	
-       	model.addAttribute("participants", DatabaseConnector.getInstance().getParticipants());
     	model.addAttribute("message", "Nowy uczestnik został dodany");
         
     	if (isAuthor) {
-    		return "AddArticle";
+           	model.addAttribute("participant", participant);
+    		return "addArticle";
     	}
     	else {
     		return "main";

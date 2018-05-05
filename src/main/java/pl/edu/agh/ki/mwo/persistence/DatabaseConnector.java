@@ -104,7 +104,7 @@ public class DatabaseConnector {
 	}
 	
 	public void addArticle(Article article, String participantId) {
-		// Trzeba zadbać o to, żeby przy dodaniu artykułu doIHaveArticle zmieniało się na true
+
 		String hql = "FROM Participant P WHERE P.id=" + participantId;
 		Query query = session.createQuery(hql);
 		List<Participant> results = query.list();
@@ -120,30 +120,35 @@ public class DatabaseConnector {
 			  				  String articleTitle,
 			  				  String articleTopic,
 			  				  String participantId) {
-		// Przy przepinaniu artykułów też trzeba dbać o zmienną doIHaveArticle
+
 		Article article = getArticle(articleId);
 		article.setTitle(articleTitle);
 		article.setTopic(articleTopic);
+		Participant previousAuthor = article.getParticipant();
+		previousAuthor.removeArticle(article);
 		Participant author = getParticipant(participantId);
 		article.setParticipant(author);
+		author.addArticle(article);
 
 		Transaction transaction = session.beginTransaction();
 		session.update(article);
+		session.update(author);
+		session.update(previousAuthor);
 		transaction.commit();
 	}
 	
 	public void deleteArticle(String articleId) {
-		// potencjalnie trzeba dbać o to, by właściciel usuwanego artykułu miał zmieniany doIHaveArticle
+
 		String hql = "FROM Article A WHERE A.id=" + articleId;
 		Query query = session.createQuery(hql);
 		List<Article> results = query.list();
+		Article article = results.get(0);
+		Participant author = article.getParticipant();
+		author.removeArticle(article);
 		
 		Transaction transaction = session.beginTransaction();
-		/*if (results.get(0).getParticipant().getArticles().size() <= 1) {
-			results.get(0).getParticipant().setDoIHaveArticle(false);
-			session.save(results.get(0).getParticipant());
-		}*/
-		session.delete(results.get(0));
+		session.delete(article);
+		session.update(author);
 		transaction.commit();
 	}
 	

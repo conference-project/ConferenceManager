@@ -18,6 +18,7 @@
         <th>Nazwisko</th>
         <th>Uniwersytet</th>
         <th>email</th>
+        <th>autor</th>
         <th></th>
       </tr>
       </thead>
@@ -28,6 +29,9 @@
         <td><span th:text="${participant.surname}"/></td>
         <td><span th:text="${participant.university}"/></td>
         <td><span th:text="${participant.email}"/></td>
+        <td>
+          <input type="checkbox" th:checked="${participant.doIHaveArticle}" disabled="disabled"/>
+        </td>
         
         <td>
           <form class="inline-block" action="DeleteParticipant" method="DELETE">

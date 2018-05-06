@@ -1,0 +1,22 @@
+body {
+  background-color: #fff;
+}
+
+.custom-form {
+  padding: 30px;
+  max-width: 500px;
+  text-align: left;
+  margin: 30px auto;
+}
+
+.custom-title {
+  margin: 20px 0;
+}
+
+.custom-checkbox {
+  padding-bottom: 1rem;
+}
+
+.inline-block {
+  display: inline-block;
+}

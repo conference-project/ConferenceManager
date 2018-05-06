@@ -169,6 +169,8 @@ public class DatabaseConnector {
 		transaction.commit();
 	}*/
 
+
+
 /*	public void editSchool(String schoolId, String name, String surname) {
 		String hql = "FROM School S WHERE S.id=" + schoolId;
 		Query query = session.createQuery(hql);

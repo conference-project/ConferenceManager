@@ -9,12 +9,24 @@ body {
   margin: 30px auto;
 }
 
+.custom-modal-over {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 .custom-title {
   margin: 20px 0;
+  text-align: left;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .custom-checkbox {
   padding-bottom: 1rem;
+}
+
+.custom-margin-top {
+  margin-top: 40px;
 }
 
 .inline-block {
@@ -22,5 +34,9 @@ body {
 }
 
 #the-content {
-  min-height: 50%;
+  min-height: calc(100% - 150px);
+}
+
+.close a:hover {
+  text-decoration: none;
 }

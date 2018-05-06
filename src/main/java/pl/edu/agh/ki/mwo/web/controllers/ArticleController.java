@@ -39,6 +39,7 @@ public class ArticleController {
     	DatabaseConnector.getInstance().addArticle(article, participantId);    	
        	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
     	model.addAttribute("message", "Nowy artykuł został dodany");
+    	model.addAttribute("alert", "Twoja rejestracja została zakończona");
     	
     	return "main";
     }

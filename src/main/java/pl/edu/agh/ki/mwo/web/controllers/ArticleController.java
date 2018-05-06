@@ -15,11 +15,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 @Controller //konieczna adnotacja oznaczjaca obiekt kontrolera od strony widoku
 public class ArticleController {
 
-<<<<<<< HEAD
     @RequestMapping(value="/Articles", method=RequestMethod.GET)
-=======
-    @RequestMapping(value="/Articles")
->>>>>>> 588136eebbb98ebf4d6b6a326816c9c1eeaad928
     public String listArticles(Model model, HttpSession session) {    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";

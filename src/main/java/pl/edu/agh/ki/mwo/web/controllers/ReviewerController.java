@@ -19,7 +19,7 @@ public class ReviewerController {
     @RequestMapping(value="/Review/{articleId}")
     public String listArticleForReviewer(Model model, HttpSession session, @PathVariable(value = "articleId") int articleId) {    	
 
-    	model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
+    	model.addAttribute("article", DatabaseConnector.getInstance().getArticle(((Integer)articleId).toString()));
     	
         return "articleRevision";    
     }

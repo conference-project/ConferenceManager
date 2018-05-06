@@ -1,5 +1,10 @@
 package pl.edu.agh.ki.mwo.web.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -7,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import pl.edu.agh.ki.mwo.model.Participant;
 import pl.edu.agh.ki.mwo.model.Article;
@@ -30,7 +36,10 @@ public class ArticleController {
     		@RequestParam(value="articleTitle", required=false) String articleTitle,
     		@RequestParam(value="articleTopic", required=false) String articleTopic,
     		@RequestParam(value="participantId", required=false) String participantId,
+    		@RequestParam(value="articleFile", required=false) MultipartFile articleFile,
     		Model model, HttpSession session) {
+    	
+    	String pathInProject = "src/main/resources/templates/";
     	
     	Article article = new Article();
     	article.setTitle(articleTitle);
@@ -39,6 +48,15 @@ public class ArticleController {
     	DatabaseConnector.getInstance().addArticle(article, participantId);    	
        	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
     	model.addAttribute("message", "Nowy artykuł został dodany");
+    	
+    	byte[] bytes;
+		try {
+			bytes = articleFile.getBytes();
+			Path path = Paths.get(pathInProject+((Long)article.getId()).toString());
+	        Files.write(path, bytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	
     	return "main";
     }

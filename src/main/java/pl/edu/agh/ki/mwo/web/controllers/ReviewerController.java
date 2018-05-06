@@ -17,9 +17,9 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 public class ReviewerController {
 
     @RequestMapping(value="/Review/{articleId}")
-    public String listArticleForReviewer(Model model, HttpSession session, @PathVariable(value = "articleId") int articleId) {    	
+    public String listArticleForReviewer(Model model, HttpSession session, @PathVariable(value = "articleId") String articleId) {    	
 
-    	model.addAttribute("article", DatabaseConnector.getInstance().getArticle(((Integer)articleId).toString()));
+    	model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
     	
         return "articleRevision";    
     }

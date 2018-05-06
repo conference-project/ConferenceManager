@@ -11,8 +11,10 @@
   <div class="container">
   <h2 class="custom-title">Dodawanie artykułu</h2>
   	
-  	<form  class="border border-primary rounded custom-form" action="AddArticle" method="POST">
-  	  <input type="hidden" name="participantId" th:value="${participant.id}" />  	
+  	<form  class="border border-primary rounded custom-form" action="AddArticle" method="POST" enctype="multipart/form-data">
+  	  <input type="hidden" name="participantId" th:value="${participant.id}" />
+  	  <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+  	    	
   	  <div class="form-group">
         <label for="name">Tytuł</label>
         <input type="text" name="articleTitle" class="form-control" id="title"/>
@@ -21,7 +23,10 @@
         <label for="name">Temat</label>
         <input type="text" name="articleTopic" class="form-control" id="topic"/>
       </div>
-       
+	  <div>
+		<label for="fileselect">Artykuł:</label>
+		<input type="file" id="fileselect" name="articleFile" multiple="multiple" />
+	  </div>	  
       <button type="submit" class="btn btn-primary">Zatwierdź artykuł</button>
   	</form>
   	

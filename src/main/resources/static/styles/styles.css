@@ -20,3 +20,7 @@ body {
 .inline-block {
   display: inline-block;
 }
+
+#the-content {
+  min-height: 50%;
+}

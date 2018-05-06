@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<body>
+
+<div layout:fragment="content">
+  <div th:include="menuFragment" ></div>
+  
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="display-4">Witaj na stronie Konferencji!</h1>
+      <p class="lead">Przejdź do formularza rejestracji, jeśli chcesz zgłosić swój udział i dodać artykuł.</p>
+      <br/><a class="btn btn-primary" href='/Start'>Rejestracja</a><br/><br/>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+

@@ -17,6 +17,7 @@
         <th>zalacznik</th>
         <th>uczestnik</th>
         <th>email</th>
+        <th>link dla recenzenta</th>
         <th>zaakceptowana</th>
         <th></th>
       </tr>
@@ -29,6 +30,7 @@
         <td><span th:text="${article.attachment}"/></td>
         <td><span th:text="${article.participant}"/></td>
         <td><span th:text="${article.participant.email}"/></td>
+        <td><a th:href="@{'Review/' + ${article.id}}"  th:text="@{'Review/' + ${article.id}}"/></td>
         <td>
           <input type="checkbox" th:checked="${article.isAprovedByReviewer}" disabled="disabled"/>
         </td>

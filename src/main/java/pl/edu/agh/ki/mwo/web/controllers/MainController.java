@@ -11,10 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
-    @RequestMapping(value={"/", "/Start"}, method=RequestMethod.GET)
+    @RequestMapping(value={"/Start"}, method=RequestMethod.GET)
     public String displayMainForm() {
         return "main";
     }
+    
+    @RequestMapping(value={"/", "/About"}, method=RequestMethod.GET)
+    public String displayAbout() {
+        return "about";
+    }
+    
 
 //	@RequestMapping(value="/AddUser", method=RequestMethod.POST)
 //	public String doLogin(@RequestParam(value="login") String login, Model model, HttpSession session) {

@@ -12,7 +12,7 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container">
       <h2 class="navbar-brand"> System obsługi konferencji <span id="the-title" layout:fragment="pageTitle" /> </h2>
-      <span class="navbar-text">Zalogowany jako: <span th:text="${session.userLogin}" /> </span>
+      <span class="navbar-text" th:if="${session.userLogin}" >Zalogowany jako: <span th:text="${session.userLogin}" /> </span>
       <span class="navbar-text"><span th:text="${message}" style='color:#c00' /> </span>
     </div>
   </nav>

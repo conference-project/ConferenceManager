@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     @RequestMapping(value={"/Login"}, method=RequestMethod.GET)
-    public String displayLoginForm() {
+    public String displayLoginForm(HttpSession session) {
+    	if (session.getAttribute("userLogin") != null)
+    		return "redirect:/Welcome";
         return "loginForm";
     }
 
@@ -26,5 +28,11 @@ public class LoginController {
     public String welcome(Model model, HttpSession session) {
     	model.addAttribute("message", "Witamy w systemie konferencyjnym!");
         return "welcome";
+    }
+    
+    @RequestMapping(value={"/Logout"}, method=RequestMethod.GET)
+    public String logout(HttpSession session) {
+    	session.setAttribute("userLogin", null);
+        return "logout";
     }
 }

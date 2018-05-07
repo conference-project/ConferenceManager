@@ -26,7 +26,7 @@ public class Participant implements java.io.Serializable {
 	private String email;
 	
 	@Column
-	private boolean doIHaveArticle;
+	private boolean doIHaveArticle = false;
 	
 	
 	public boolean isDoIHaveArticle() {
@@ -46,6 +46,22 @@ public class Participant implements java.io.Serializable {
 	public void addArticle(Article newArticle) {
 		articles.add(newArticle);
 		newArticle.setParticipant(this);
+		controlAuthorship();
+	}
+	
+	public void removeArticle(Article article) {
+		articles.remove(article);
+		article.setParticipant(null);
+		controlAuthorship();
+	}
+	
+	public void controlAuthorship() {
+		if (articles.size() == 0) {
+			doIHaveArticle = false;
+		}
+		else {
+			doIHaveArticle = true;
+		}
 	}
 
 	public long getId() {
@@ -98,9 +114,11 @@ public class Participant implements java.io.Serializable {
 
 	public void setArticles(Set<Article> articles) {
 		this.articles = articles;
+		controlAuthorship();
 	}
 
 	public String toString() {
-		return "uczestnik: " + getName() + " " + getSurname() + ", "+getUniversity();
+		String participantType = isDoIHaveArticle()? "autor: " : "uczestnik: ";
+		return participantType + getName() + " " + getSurname() + ", "+getUniversity();
 	}
 }

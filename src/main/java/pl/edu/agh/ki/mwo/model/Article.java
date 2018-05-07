@@ -27,6 +27,9 @@ public class Article implements java.io.Serializable {
 	
 	@Column
 	private boolean isAprovedByReviewer; // to do: zmien na null-able bool
+	
+	@Column
+	private int rate;
 
 	public long getId() {
 		return id;
@@ -81,5 +84,13 @@ public class Article implements java.io.Serializable {
 
 	public String toString() {
 		return "Article: "+getTitle() ;
+	}
+	
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 }

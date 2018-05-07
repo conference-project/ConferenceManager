@@ -20,24 +20,35 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><span th:text="${article.id}" /></td>
+				<!--  	<td><span th:text="${article.id}" /></td>
 						<td><span th:text="${article.title}" /></td>
+						-->
 						<td><span th:text="${article.attachment}" /></td>
 					</tr>
 				</tbody>
 			</table>
-			
-			<form class="inline-block" action="AcceptArticle" method="Post">
-				<input type="hidden" name="articleId" th:value="${article.id}" />
-				<button class="btn btn-warning" type="submit">Accept</button>
-			</form>
-			<form class="inline-block" action="RejectArticle" method="POST">
-				<input type="hidden" name="articleId" th:value="${article.id}" />
-				<button class="btn btn-info" type="submit">Reject</button>
-			</form>
 
+			<form class="inline-block" action="Rate" method="Post">
+				<input id="input-rating" name="rate" value="2" type="text" title="" />
+				<br/>
+				<input type="hidden" name="articleId" th:value="${article.id}" />
+				<button class="btn btn-warning" type="submit">Prześlij ocenę</button>
+			</form>
 		</div>
+		<script>
+        jQuery(document).ready(function () {
+               		
+           $('#input-rating').rating({
+                min: 0,
+                max: 5,
+                step: 1,
+                size: 'xs',
+                showClear: false,
+                showCaption: false
+            });
 
+        });
+    </script>
 	</div>
 
 </body>

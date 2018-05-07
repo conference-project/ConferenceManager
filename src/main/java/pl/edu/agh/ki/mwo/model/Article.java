@@ -18,9 +18,6 @@ public class Article implements java.io.Serializable {
 	@Column
 	private String topic;
 	
-	@Column
-	private String attachment;
-	
 	@ManyToOne
 	@JoinColumn(name="participant_id")
 	private Participant participant;
@@ -53,14 +50,6 @@ public class Article implements java.io.Serializable {
 
 	public void setTopic(String topic) {
 		this.topic = topic;
-	}
-
-	public String getAttachment() {
-		return attachment;
-	}
-
-	public void setAttachment(String attachment) {
-		this.attachment = attachment;
 	}
 
 	public Participant getParticipant() {

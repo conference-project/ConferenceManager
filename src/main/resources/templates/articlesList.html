@@ -15,7 +15,6 @@
         <th>Id</th>
         <th>tytul</th>
         <th>temat</th>
-        <th>zalacznik</th>
         <th>uczestnik</th>
         <th>email</th>
         <th>link dla recenzenta</th>
@@ -28,7 +27,6 @@
         <td><span th:text="${article.id}"/></td>
         <td><span th:text="${article.title}"/></td>
         <td><span th:text="${article.topic}"/></td>
-        <td><span th:text="${article.attachment}"/></td>
         <td><span th:text="${article.participant}"/></td>
         <td><span th:text="${article.participant.email}"/></td>
         <td><a th:href="@{'Review/' + ${article.id}}"  th:text="@{'Review/' + ${article.id}}"/></td>

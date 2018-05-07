@@ -20,6 +20,8 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 
 @Controller //konieczna adnotacja oznaczjaca obiekt kontrolera od strony widoku
 public class ArticleController {
+	
+	String pathInProject = "src/main/resources/templates/";
 
     @RequestMapping(value="/Articles", method=RequestMethod.GET)
     public String listArticles(Model model, HttpSession session) {    	
@@ -38,8 +40,6 @@ public class ArticleController {
     		@RequestParam(value="participantId", required=false) String participantId,
     		@RequestParam(value="articleFile", required=false) MultipartFile articleFile,
     		Model model, HttpSession session) {
-    	
-    	String pathInProject = "src/main/resources/templates/";
     	
     	Article article = new Article();
     	article.setTitle(articleTitle);
@@ -70,7 +70,6 @@ public class ArticleController {
     		return "redirect:/Login";
     	
     	model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
-    	//chyba
     	model.addAttribute("participants", DatabaseConnector.getInstance().getParticipants());
     	
     	return "updateArticle";	
@@ -103,7 +102,13 @@ public class ArticleController {
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
     	
-    	DatabaseConnector.getInstance().deleteArticle(articleId);    	
+    	DatabaseConnector.getInstance().deleteArticle(articleId);
+        try {
+        	Path path = Paths.get(pathInProject + articleId);
+        	Files.delete(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
        	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
     	model.addAttribute("message", "Artykuł został usunięty");
          	

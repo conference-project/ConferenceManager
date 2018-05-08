@@ -70,7 +70,7 @@ public class Article implements java.io.Serializable {
 		return isAprovedByReviewer ? "tak":"nie";
 	}*/
 
-	public void setAprovedByReviewer(boolean isAprovedByReviewer) {
+	public void setIsAprovedByReviewer(boolean isAprovedByReviewer) {
 		this.isAprovedByReviewer = isAprovedByReviewer;
 	}
 

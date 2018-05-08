@@ -42,6 +42,10 @@ public class ReviewerController {
 			@PathVariable(value = "articleId") String articleId) {
 
 		DatabaseConnector.getInstance().rateArticle(articleId, rate);
+		if(rate>2) {
+			DatabaseConnector.getInstance().getArticle(articleId).setIsAprovedByReviewer(true);;
+		}
+		
 		if (comment!=null || comment.equals("")) {
 			DatabaseConnector.getInstance().commentForArticle(articleId, comment);
 		}

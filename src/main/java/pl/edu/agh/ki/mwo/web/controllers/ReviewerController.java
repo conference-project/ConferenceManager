@@ -28,7 +28,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 @Controller
 public class ReviewerController {
 	
-	String pathInProject = "src/main/resources/templates/pdf/";
+	String pathInProject = "src/main/resources/static/files/";
 
 	@RequestMapping(value = "/Article/{articleId}/Review/")
 	public String listArticleForReviewer(Model model, HttpSession session,
@@ -54,16 +54,13 @@ public class ReviewerController {
 	@RequestMapping(value="/Article/{articleId}/Review/pdf/{articleId}.pdf", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> showPdf(Model model, HttpSession session, @PathVariable(value = "articleId") String articleId) throws IOException {
 		
-		//model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
-		model.addAttribute("mes", "test");
-
 		HttpHeaders headers = new HttpHeaders();
 
 	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
 	    String filename = articleId+".pdf";
 
 	    headers.add("content-disposition", "inline;filename=" + filename);
-		Path path = Paths.get(pathInProject+articleId.toString());
+		Path path = Paths.get(pathInProject+articleId+".pdf".toString());
         
 	    byte[] pdfAsBytes = Files.readAllBytes(path);
 	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");

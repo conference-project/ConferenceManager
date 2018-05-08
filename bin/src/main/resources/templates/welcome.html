@@ -6,8 +6,10 @@
 <div layout:fragment="content">
   <div th:include="menuFragmentForEditor"></div>
   
+  <br/><br/><br/>
+  
   <div class="container">
-    <div class="jumbotron custom-margin-top">
+    <div class="jumbotron">
       <h1 class="display-4">Witaj w panelu Edytora <span th:text="${session.userLogin}" />!</h1>
       <p class="lead">Tutaj możesz dodawać uczestników oraz zarządzać listą artykułów.</p>
     </div>

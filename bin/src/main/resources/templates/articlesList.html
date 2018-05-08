@@ -2,22 +2,21 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <body>
-<span layout:fragment="pageTitle"> - Artykuły </span>
+<span layout:fragment="pageTitle"> - Uczestnicy </span>
 
 <div layout:fragment="content">
   <div th:include="menuFragmentForEditor"></div>
-
+  <br/><br/>
   <div class="container">
-    <h2 class="custom-title">Lista artykułów</h2>
     <table border="1" cellpadding="5" class="table table-striped">
       <thead class="thead-dark">
       <tr>
         <th>Id</th>
         <th>tytul</th>
         <th>temat</th>
+        <th>zalacznik</th>
         <th>uczestnik</th>
         <th>email</th>
-        <th>link dla recenzenta</th>
         <th>zaakceptowana</th>
         <th></th>
       </tr>
@@ -27,21 +26,17 @@
         <td><span th:text="${article.id}"/></td>
         <td><span th:text="${article.title}"/></td>
         <td><span th:text="${article.topic}"/></td>
+        <td><span th:text="${article.attachment}"/></td>
         <td><span th:text="${article.participant}"/></td>
         <td><span th:text="${article.participant.email}"/></td>
-        <td><a th:href="@{'Article/' + ${article.id} + '/Review/'}"  th:text="@{'Article/' + ${article.id} + '/Review/'}"/></td>
         <td>
           <input type="checkbox" th:checked="${article.isAprovedByReviewer}" disabled="disabled"/>
         </td>
       
         <td>
-          <form class="inline-block" action="DeleteArticle" method="DELETE">
+          <form action="DeleteArticle" method="DELETE">
             <input type="hidden" name="articleId" th:value="${article.id}"/>
             <button class="btn btn-warning" type="submit">X</button>
-          </form>
-          <form class="inline-block" action="UpdateArticle" method="POST">
-            <input type="hidden" name="articleId" th:value="${article.id}"/>
-            <button class="btn btn-info" type="submit">Edit</button>
           </form>
       
         </td>

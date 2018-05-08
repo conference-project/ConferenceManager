@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layoutBasic">
+<body th:class="${alert}?'modal-open':''">
+
+	<span layout:fragment="pageTitle"> - Recenzja </span>
+
+	<div layout:fragment="content">
+
+		<div th:if="${alert}" class="modal fade show custom-modal-over"
+			tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Dziękujemy</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<a href="/About">&times;</a>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p th:text="${alert}" />
+					</div>
+					<div class="modal-footer">
+						<a class="btn btn-primary" href='/About'>Strona główna</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<h2 class="custom-title">Recenzja artykułu</h2>
+			<table border="1" cellpadding="5" class="table table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<!--	<th>Id</th>
+						<th>tytuł</th>
+					-->
+						<th>załącznik</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<!--  	<td><span th:text="${article.id}" /></td>
+						<td><span th:text="${article.title}" /></td>
+					-->
+            <td><span th:text="${article.id}" /><a th:href="@{'/files/' + ${article.id} + '.pdf'}" target="_blank"> Pobierz artykuł w formacie pdf</a></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<form class="inline-block" action="Rate" method="Post">
+				<input id="input-rating" name="rate" value="2" type="text" title="" />
+				<br /> <input type="hidden" name="articleId"
+					th:value="${article.id}" />
+				<button class="btn btn-warning" type="submit">Prześlij
+					ocenę</button>
+			</form>
+		</div>
+		<script>
+        jQuery(document).ready(function () {
+               		
+           $('#input-rating').rating({
+                min: 0,
+                max: 5,
+                step: 1,
+                size: 'xs',
+                showClear: false,
+                showCaption: false
+            });
+
+        });
+    </script>
+	</div>
+
+</body>
+</html>

@@ -118,6 +118,7 @@ public class Participant implements java.io.Serializable {
 	}
 
 	public String toString() {
-		return "uczestnik: " + getName() + " " + getSurname() + ", "+getUniversity();
+		String participantType = isDoIHaveArticle()? "autor: " : "uczestnik: ";
+		return participantType + getName() + " " + getSurname() + ", "+getUniversity();
 	}
 }

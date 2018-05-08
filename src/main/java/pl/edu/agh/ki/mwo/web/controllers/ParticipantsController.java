@@ -58,6 +58,7 @@ public class ParticipantsController {
     		return "addArticle";
     	}
     	else {
+    		model.addAttribute("alert", "Twoja rejestracja została zakończona");
     		return "main";
     	}
     }

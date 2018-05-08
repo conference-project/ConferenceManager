@@ -18,15 +18,15 @@ public class Article implements java.io.Serializable {
 	@Column
 	private String topic;
 	
-	@Column
-	private String attachment;
-	
 	@ManyToOne
 	@JoinColumn(name="participant_id")
 	private Participant participant;
 	
 	@Column
 	private boolean isAprovedByReviewer; // to do: zmien na null-able bool
+	
+	@Column
+	private int rate;
 
 	public long getId() {
 		return id;
@@ -52,14 +52,6 @@ public class Article implements java.io.Serializable {
 		this.topic = topic;
 	}
 
-	public String getAttachment() {
-		return attachment;
-	}
-
-	public void setAttachment(String attachment) {
-		this.attachment = attachment;
-	}
-
 	public Participant getParticipant() {
 		return participant;
 	}
@@ -81,5 +73,13 @@ public class Article implements java.io.Serializable {
 
 	public String toString() {
 		return "Article: "+getTitle() ;
+	}
+	
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 }

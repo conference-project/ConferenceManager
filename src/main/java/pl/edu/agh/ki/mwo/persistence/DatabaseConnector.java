@@ -102,7 +102,7 @@ public class DatabaseConnector {
 		
 		return results.get(0);
 	}
-	
+		
 	public void addArticle(Article article, String participantId) {
 
 		String hql = "FROM Participant P WHERE P.id=" + participantId;
@@ -119,7 +119,7 @@ public class DatabaseConnector {
 	public void updateArticle(String articleId,
 			  				  String articleTitle,
 			  				  String articleTopic,
-			  				  String participantId) {
+			  				  String participantId) {// czy dodajemy mozliwosc zmiany oceny???
 
 		Article article = getArticle(articleId);
 		article.setTitle(articleTitle);
@@ -135,7 +135,19 @@ public class DatabaseConnector {
 		session.update(author);
 		session.update(previousAuthor);
 		transaction.commit();
+		
 	}
+	
+	public void rateArticle(String articleId, int rate) {
+		
+		Article article = getArticle(articleId);
+		article.setRate(rate);
+		
+		Transaction transaction = session.beginTransaction();
+		session.update(article);
+		transaction.commit();
+	}
+	
 	
 	public void deleteArticle(String articleId) {
 
@@ -168,6 +180,8 @@ public class DatabaseConnector {
 		}
 		transaction.commit();
 	}*/
+
+
 
 /*	public void editSchool(String schoolId, String name, String surname) {
 		String hql = "FROM School S WHERE S.id=" + schoolId;

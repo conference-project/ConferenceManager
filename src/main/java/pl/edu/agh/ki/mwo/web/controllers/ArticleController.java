@@ -53,7 +53,7 @@ public class ArticleController {
     	byte[] bytes;
 		try {
 			bytes = articleFile.getBytes();
-			Path path = Paths.get(pathInProject+((Long)article.getId()).toString());
+			Path path = Paths.get(pathInProject+((Long)article.getId()).toString()+".pdf");
 	        Files.write(path, bytes);
 		} catch (IOException e) {
 			e.printStackTrace();

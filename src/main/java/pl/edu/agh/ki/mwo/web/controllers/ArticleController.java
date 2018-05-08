@@ -21,7 +21,8 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 @Controller //konieczna adnotacja oznaczjaca obiekt kontrolera od strony widoku
 public class ArticleController {
 	
-	String pathInProject = "src/main/resources/templates/pdf/";
+	String pathInProject1 = "src/main/resources/templates/pdf/";
+	String pathInProject = "src/main/resources/static/files/";
 
     @RequestMapping(value="/Articles", method=RequestMethod.GET)
     public String listArticles(Model model, HttpSession session) {    	
@@ -53,7 +54,7 @@ public class ArticleController {
     	byte[] bytes;
 		try {
 			bytes = articleFile.getBytes();
-			Path path = Paths.get(pathInProject+((Long)article.getId()).toString());
+			Path path = Paths.get(pathInProject+((Long)article.getId()).toString()+".pdf");
 	        Files.write(path, bytes);
 		} catch (IOException e) {
 			e.printStackTrace();

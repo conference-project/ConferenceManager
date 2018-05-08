@@ -41,6 +41,7 @@
 				</thead>
 				<tbody>
 					<tr >
+            <td><span th:text="${article.id}" /><a th:href="@{'/files/' + ${article.id} + '.pdf'}" target="_blank"> Pobierz artykuł w formacie pdf</a></td>
 					</tr>
 				</tbody>
 			</table>

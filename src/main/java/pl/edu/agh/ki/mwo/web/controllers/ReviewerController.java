@@ -1,6 +1,5 @@
 package pl.edu.agh.ki.mwo.web.controllers;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,7 +24,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 
 @Controller
 public class ReviewerController {
-	
+
 	String pathInProject = "src/main/resources/static/files/";
 
 	@RequestMapping(value = "/Article/{articleId}/Review/")
@@ -38,31 +37,36 @@ public class ReviewerController {
 	}
 
 	@RequestMapping(value = "/Article/{articleId}/Review/Rate")
-	public String rateArticle(@RequestParam(value = "rate", required = true) int rate, Model model,
-			HttpSession session, @PathVariable(value = "articleId") String articleId) {
-		
+	public String rateArticle(@RequestParam(value = "rate", required = true) int rate,
+			@RequestParam(value = "comment", required = false) String comment, Model model, HttpSession session,
+			@PathVariable(value = "articleId") String articleId) {
+
 		DatabaseConnector.getInstance().rateArticle(articleId, rate);
+		if (comment!=null || comment.equals("")) {
+			DatabaseConnector.getInstance().commentForArticle(articleId, comment);
+		}
 		model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
 		model.addAttribute("message", "Artykuł został oceniony");
-		model.addAttribute("alert", "Twoja ocena została przesłana");
-		
+		model.addAttribute("alert", "Dziękujemy za recenzje i ocenę pracy.");
+
 		return "articleRevision";
 	}
-	
-	@RequestMapping(value="/Article/{articleId}/Review/pdf/{articleId}.pdf", method=RequestMethod.GET)
-	public ResponseEntity<byte[]> showPdf(Model model, HttpSession session, @PathVariable(value = "articleId") String articleId) throws IOException {
-		
+
+	@RequestMapping(value = "/Article/{articleId}/Review/pdf/{articleId}.pdf", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> showPdf(Model model, HttpSession session,
+			@PathVariable(value = "articleId") String articleId) throws IOException {
+
 		HttpHeaders headers = new HttpHeaders();
 
-	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
-	    String filename = articleId+".pdf";
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+		String filename = articleId + ".pdf";
 
-	    headers.add("content-disposition", "inline;filename=" + filename);
-		Path path = Paths.get(pathInProject+articleId+".pdf".toString());
-        
-	    byte[] pdfAsBytes = Files.readAllBytes(path);
-	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-	    ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(pdfAsBytes, headers, HttpStatus.OK);
-	    return response;
+		headers.add("content-disposition", "inline;filename=" + filename);
+		Path path = Paths.get(pathInProject + articleId + ".pdf".toString());
+
+		byte[] pdfAsBytes = Files.readAllBytes(path);
+		headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(pdfAsBytes, headers, HttpStatus.OK);
+		return response;
 	}
 }

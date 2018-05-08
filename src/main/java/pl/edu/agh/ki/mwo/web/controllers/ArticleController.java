@@ -21,7 +21,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 @Controller //konieczna adnotacja oznaczjaca obiekt kontrolera od strony widoku
 public class ArticleController {
 	
-	String pathInProject = "src/main/resources/templates/";
+	String pathInProject = "src/main/resources/static/files/";
 
     @RequestMapping(value="/Articles", method=RequestMethod.GET)
     public String listArticles(Model model, HttpSession session) {    	

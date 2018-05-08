@@ -29,7 +29,7 @@
         <td><span th:text="${article.topic}"/></td>
         <td><span th:text="${article.participant}"/></td>
         <td><span th:text="${article.participant.email}"/></td>
-        <td><a th:href="@{'Review/' + ${article.id}}"  th:text="@{'Review/' + ${article.id}}"/></td>
+        <td><a th:href="@{'Article/' + ${article.id} + '/Review/'}"  th:text="@{'Article/' + ${article.id} + '/Review/'}"/></td>
         <td>
           <input type="checkbox" th:checked="${article.isAprovedByReviewer}" disabled="disabled"/>
         </td>

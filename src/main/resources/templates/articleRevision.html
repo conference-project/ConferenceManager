@@ -40,12 +40,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-					<!-- 	<td><span th:text="${article.id}" /></td> -->
-						<td><embed src="/Article/27/Review/pdf/27.pdf" type="application/pdf" /></td>
+					<tr >
 					</tr>
 				</tbody>
 			</table>
+			<div ><embed th:src="'/Article/'+${article.id}+'/Review/pdf/'+${article.id}+'.pdf'" type="application/pdf" style="height:500px; width:100%" /></div>
+			
 
 			<form class="inline-block" action="Rate" method="Post">
 				<input id="input-rating" name="rate" value="2" type="text" title="" />

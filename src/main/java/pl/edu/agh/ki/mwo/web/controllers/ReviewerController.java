@@ -52,9 +52,12 @@ public class ReviewerController {
 	}
 	
 	@RequestMapping(value="/Article/{articleId}/Review/pdf/{articleId}.pdf", method=RequestMethod.GET)
-	public ResponseEntity<byte[]> showPdf(@PathVariable(value = "articleId") String articleId) throws IOException {
+	public ResponseEntity<byte[]> showPdf(Model model, HttpSession session, @PathVariable(value = "articleId") String articleId) throws IOException {
+		
+		//model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
+		model.addAttribute("mes", "test");
 
-	    HttpHeaders headers = new HttpHeaders();
+		HttpHeaders headers = new HttpHeaders();
 
 	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
 	    String filename = articleId+".pdf";

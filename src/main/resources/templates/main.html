@@ -25,6 +25,25 @@
     </div>
   </div>
   
+  <div th:if="${alert2}" class="modal fade show custom-modal-over" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Uwaga</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <a href="/Start">&times;</a>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p th:text="${alert2}"/>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-primary" href='/Start'>Wróć do rejestracji</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <div class="container">
     <h2 class="custom-title">Rejestracja uczestnika</h2>
     

@@ -45,16 +45,25 @@ public class ArticleController {
     	article.setTitle(articleTitle);
     	article.setTopic(articleTopic);
 
-    	DatabaseConnector.getInstance().addArticle(article, participantId);    	
-       	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
-    	model.addAttribute("message", "Nowy artykuł został dodany");
-    	model.addAttribute("alert", "Twoja rejestracja została zakończona");
-    	
     	byte[] bytes;
+
 		try {
-			bytes = articleFile.getBytes();
-			Path path = Paths.get(pathInProject+((Long)article.getId()).toString()+".pdf");
-	        Files.write(path, bytes);
+	    	if(articleFile==null || articleFile.getBytes().length==0) {
+	    		model.addAttribute("message", "Nie załączono żadnej treści artykułu");
+	        	DatabaseConnector.getInstance().deleteParticipant(participantId);
+	        	model.addAttribute("alert2", "Nie załączyłeś pliku. Twoja rejestracja nie powiodła się");
+
+	    			    		
+	    	}else {
+	        	DatabaseConnector.getInstance().addArticle(article, participantId);    	
+	           	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
+	        	model.addAttribute("message", "Nowy artykuł został dodany");
+	        	model.addAttribute("alert", "Twoja rejestracja została zakończona");
+	        	
+				bytes = articleFile.getBytes();
+				Path path = Paths.get(pathInProject+((Long)article.getId()).toString()+".pdf");
+		        Files.write(path, bytes);
+	    	}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

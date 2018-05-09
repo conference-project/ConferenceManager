@@ -51,7 +51,7 @@ public class RevisionController {
 			
 		}else {
 			DatabaseConnector.getInstance().rateArticle(articleId, rate);
-			if(rate>2) {
+			if(rate>=positiveRate) {
 				DatabaseConnector.getInstance().getArticle(articleId).setIsAprovedByReviewer(true);;
 			}
 			

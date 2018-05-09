@@ -23,7 +23,7 @@ import pl.edu.agh.ki.mwo.model.Article;
 import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 
 @Controller
-public class ReviewerController {
+public class RevisionController {
 
 	String pathInProject = "src/main/resources/static/files/";
 

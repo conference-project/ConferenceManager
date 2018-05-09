@@ -30,7 +30,7 @@ public class RevisionController {
 	@RequestMapping(value = "/Article/{articleId}/Review/")
 	public String listArticleForReviewer(Model model, HttpSession session,
 			@PathVariable(value = "articleId") String articleId) {
-
+    	
 		model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
 
 		return "articleRevision";
@@ -40,19 +40,24 @@ public class RevisionController {
 	public String rateArticle(@RequestParam(value = "rate", required = true) int rate,
 			@RequestParam(value = "comment", required = false) String comment, Model model, HttpSession session,
 			@PathVariable(value = "articleId") String articleId) {
-
-		DatabaseConnector.getInstance().rateArticle(articleId, rate);
-		if(rate>2) {
-			DatabaseConnector.getInstance().getArticle(articleId).setIsAprovedByReviewer(true);;
-		}
 		
-		if (comment!=null || comment.equals("")) {
-			DatabaseConnector.getInstance().commentForArticle(articleId, comment);
+		if (DatabaseConnector.getInstance().getArticle(articleId).getRate()>2) {
+			model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
+			model.addAttribute("message", "Artykuł już został pozytywnie oceniony");
+			model.addAttribute("alert", "Nie można zmienić oceny, ponieważ artykuł już został pozytywnie oceniony.");
+		}else {
+			DatabaseConnector.getInstance().rateArticle(articleId, rate);
+			if(rate>2) {
+				DatabaseConnector.getInstance().getArticle(articleId).setIsAprovedByReviewer(true);;
+			}
+			
+			if (comment!=null || comment.equals("")) {
+				DatabaseConnector.getInstance().commentForArticle(articleId, comment);
+			}
+			model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
+			model.addAttribute("message", "Artykuł został oceniony");
+			model.addAttribute("alert", "Dziękujemy za recenzje i ocenę pracy.");
 		}
-		model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
-		model.addAttribute("message", "Artykuł został oceniony");
-		model.addAttribute("alert", "Dziękujemy za recenzje i ocenę pracy.");
-
 		return "articleRevision";
 	}
 

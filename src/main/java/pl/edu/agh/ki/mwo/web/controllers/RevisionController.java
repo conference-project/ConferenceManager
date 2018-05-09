@@ -26,6 +26,7 @@ import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 public class RevisionController {
 
 	String pathInProject = "src/main/resources/static/files/";
+	int positiveRate=3;
 
 	@RequestMapping(value = "/Article/{articleId}/Review/")
 	public String listArticleForReviewer(Model model, HttpSession session,
@@ -41,10 +42,13 @@ public class RevisionController {
 			@RequestParam(value = "comment", required = false) String comment, Model model, HttpSession session,
 			@PathVariable(value = "articleId") String articleId) {
 		
-		if (DatabaseConnector.getInstance().getArticle(articleId).getRate()>2) {
+		if (DatabaseConnector.getInstance().getArticle(articleId).getRate()>=positiveRate) {
+			// if is added to block possibility of changing evaluation for once positively rated article 
+			
 			model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
 			model.addAttribute("message", "Artykuł już został pozytywnie oceniony");
 			model.addAttribute("alert", "Nie można zmienić oceny, ponieważ artykuł już został pozytywnie oceniony.");
+			
 		}else {
 			DatabaseConnector.getInstance().rateArticle(articleId, rate);
 			if(rate>2) {

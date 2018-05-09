@@ -148,6 +148,15 @@ public class DatabaseConnector {
 		transaction.commit();
 	}
 	
+	public void commentForArticle(String articleId, String comment) {
+		
+		Article article = getArticle(articleId);
+		article.setComment(comment);
+		
+		Transaction transaction = session.beginTransaction();
+		session.update(article);
+		transaction.commit();		
+	}
 	
 	public void deleteArticle(String articleId) {
 
@@ -163,89 +172,5 @@ public class DatabaseConnector {
 		session.update(author);
 		transaction.commit();
 	}
-	
-/*	public void addSchool(Participant school) {
-		Transaction transaction = session.beginTransaction();
-		session.save(school);
-		transaction.commit();
-	}
-
-	public void deleteSchool(String schoolId) {
-		String hql = "FROM School S WHERE S.id=" + schoolId;
-		Query query = session.createQuery(hql);
-		List<Participant> results = query.list();
-		Transaction transaction = session.beginTransaction();
-		for (Participant s : results) {
-			session.delete(s);
-		}
-		transaction.commit();
-	}*/
-
-
-
-/*	public void editSchool(String schoolId, String name, String surname) {
-		String hql = "FROM School S WHERE S.id=" + schoolId;
-		Query query = session.createQuery(hql);
-		List<Participant> results = query.list();
-		Transaction transaction = session.beginTransaction();
-		for (Participant s : results) {
-			s.setName(name);
-			s.setSurname(surname);
-			session.update(s);
-		}
-		transaction.commit();
-	}
-
-*/
-
-/*	public void addSchoolClass(Article schoolClass, String schoolId) {
-		String hql = "FROM School S WHERE S.id=" + schoolId;
-		Query query = session.createQuery(hql);
-		List<Participant> results = query.list();
-		Transaction transaction = session.beginTransaction();
-		if (results.size() == 0) {
-			session.save(schoolClass);
-		} else {
-			Participant school = results.get(0);
-			school.addArticle(schoolClass);
-			session.save(school);
-		}
-		transaction.commit();
-	}
-
-	public void deleteSchoolClass(String schoolClassId) {
-		String hql = "FROM SchoolClass S WHERE S.id=" + schoolClassId;
-		Query query = session.createQuery(hql);
-		List<Article> results = query.list();
-		Transaction transaction = session.beginTransaction();
-		for (Article s : results) {
-			session.delete(s);
-		}
-		transaction.commit();
-	}
-	
-	public void editSchoolClass(String schoolClassId, String schoolClassProfile, String schoolClassStartYear,
-			String schoolClassCurrentYear, String schoolID) {
-		String hql = "FROM SchoolClass S WHERE S.id=" + schoolClassId;
-		Query query = session.createQuery(hql);
-		List<Article> results = query.list();
-		String hqlSchool = "FROM School S WHERE S.id=" + schoolID;
-		Query querySchool = session.createQuery(hqlSchool);
-		List<Participant> schoolResults = querySchool.list();
-		Transaction transaction = session.beginTransaction();
-		for (Article s : results) {
-			s.setProfile(schoolClassProfile);
-			s.setStartYear(Integer.valueOf(schoolClassStartYear));
-			s.setCurrentYear(Integer.valueOf(schoolClassCurrentYear));
-			s.setSchool(schoolResults.get(0));
-			session.update(s);
-		}
-		transaction.commit();
-		
-	}*/
-
-
-
-
 
 }

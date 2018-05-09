@@ -51,9 +51,13 @@ public class ArticleController {
 		try {
 	    	if(articleFile==null || articleFile.getBytes().length==0) {
 	    		model.addAttribute("message", "Nie załączono żadnej treści artykułu");
-	        	DatabaseConnector.getInstance().deleteParticipant(participantId);
-	        	model.addAttribute("alert2", "Nie załączyłeś pliku. Twoja rejestracja nie powiodła się");
-
+	        	if(DatabaseConnector.getInstance().getParticipant(participantId).getArticles().isEmpty()) {
+	        		DatabaseConnector.getInstance().deleteParticipant(participantId);
+		        	model.addAttribute("alert2", "Nie załączyłeś pliku. Twoja rejestracja nie powiodła się");
+	        	}
+	        	else {
+		        	model.addAttribute("alert2", "Nie załączyłeś kolejnego pliku. Poprzednie pliki zostały zachowane");
+	        	}
 	    			    		
 	    	}else {
 	        	DatabaseConnector.getInstance().addArticle(article, participantId);    	

@@ -17,8 +17,9 @@
         <th>temat</th>
         <th>uczestnik</th>
         <th>email</th>
+        <th>ocena</th>
         <th>link dla recenzenta</th>
-        <th>zaakceptowana</th>
+        <th>przyjety</th>
         <th></th>
       </tr>
       </thead>
@@ -27,8 +28,9 @@
         <td><span th:text="${article.id}"/></td>
         <td><span th:text="${article.title}"/></td>
         <td><span th:text="${article.topic}"/></td>
-        <td><span th:text="${article.participant}"/></td>
+        <td><span th:text="${article.participant.name} + ' ' + ${article.participant.surname}"/></td>
         <td><span th:text="${article.participant.email}"/></td>
+        <td><span th:text="${article.rate}"/></td>
         <td><a th:href="@{'Article/' + ${article.id} + '/Review/'}"  th:text="@{'Article/' + ${article.id} + '/Review/'}"/></td>
         <td>
           <input type="checkbox" th:checked="${article.isAprovedByReviewer}" disabled="disabled"/>
@@ -48,7 +50,9 @@
       </tr>
       </tbody>
     </table>
-    <br/><a class="btn btn-primary" href='AddArticle'>dodaj</a><br/><br/>
+
+     <br/><a class="btn btn-primary" href="Start">dodaj</a><br/><br/>
+ 
   </div>
 </div>
 

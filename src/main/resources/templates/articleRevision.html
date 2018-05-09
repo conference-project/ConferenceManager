@@ -12,7 +12,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Dziękujemy</h5>
+						<h5 class="modal-title">Artykuł został oceniony!</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<a href="/About">&times;</a>
@@ -41,20 +41,26 @@
 				</thead>
 				<tbody>
 					<tr>
-						<!--  	<td><span th:text="${article.id}" /></td>
-						<td><span th:text="${article.title}" /></td>
-					-->
-            <td><span th:text="${article.id}" /><a th:href="@{'/files/' + ${article.id} + '.pdf'}" target="_blank"> Pobierz artykuł w formacie pdf</a></td>
+						<td><span th:text="${article.id}" /><a
+							th:href="@{'/files/' + ${article.id} + '.pdf'}" target="_blank">
+								Pobierz artykuł w formacie pdf</a></td>
 					</tr>
 				</tbody>
 			</table>
+			<div>
+				<embed
+					th:src="'/Article/'+${article.id}+'/Review/pdf/'+${article.id}+'.pdf'"
+					type="application/pdf" style="height: 500px; width: 100%" />
+			</div>
 
 			<form class="inline-block" action="Rate" method="Post">
-				<input id="input-rating" name="rate" value="2" type="text" title="" />
-				<br /> <input type="hidden" name="articleId"
-					th:value="${article.id}" />
-				<button class="btn btn-warning" type="submit">Prześlij
-					ocenę</button>
+				<label for="comment">Komentarz: </label>
+				<textarea id="comment" name="comment" rows="4" cols="50" />
+				
+				<br /> <label for="input-rating">Oceń (1-5): </label> <input
+					id="input-rating" name="rate" value="2" type="text" title="" /> <br />
+				<input type="hidden" name="articleId" th:value="${article.id}" />
+				<button class="btn btn-warning" type="submit">Prześlij ocenę</button>
 			</form>
 		</div>
 		<script>

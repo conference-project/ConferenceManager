@@ -18,6 +18,9 @@ public class Article implements java.io.Serializable {
 	@Column
 	private String topic;
 	
+	@Column
+	private String comment;
+
 	@ManyToOne
 	@JoinColumn(name="participant_id")
 	private Participant participant;
@@ -67,7 +70,7 @@ public class Article implements java.io.Serializable {
 		return isAprovedByReviewer ? "tak":"nie";
 	}*/
 
-	public void setAprovedByReviewer(boolean isAprovedByReviewer) {
+	public void setIsAprovedByReviewer(boolean isAprovedByReviewer) {
 		this.isAprovedByReviewer = isAprovedByReviewer;
 	}
 
@@ -80,6 +83,14 @@ public class Article implements java.io.Serializable {
 	}
 
 	public void setRate(int rate) {
-		this.rate = rate;
+		this.rate = rate;	
+	}
+		
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

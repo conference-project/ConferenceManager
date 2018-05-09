@@ -39,6 +39,7 @@ public class ArticleController {
     		@RequestParam(value="articleTopic", required=false) String articleTopic,
     		@RequestParam(value="participantId", required=false) String participantId,
     		@RequestParam(value="articleFile", required=false) MultipartFile articleFile,
+    		@RequestParam(value="moreThanOneArticle", required=false) boolean moreThanOneArticle,
     		Model model, HttpSession session) {
     	
     	Article article = new Article();
@@ -63,6 +64,11 @@ public class ArticleController {
 				bytes = articleFile.getBytes();
 				Path path = Paths.get(pathInProject+((Long)article.getId()).toString()+".pdf");
 		        Files.write(path, bytes);
+		        
+		        if (moreThanOneArticle) {
+		        	model.addAttribute("participant", DatabaseConnector.getInstance().getParticipant(participantId));
+		        	return "addArticle";
+		        }
 	    	}
 		} catch (IOException e) {
 			e.printStackTrace();

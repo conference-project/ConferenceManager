@@ -40,3 +40,7 @@ body {
 .close a:hover {
   text-decoration: none;
 }
+
+.modal-footer.text-center {
+  justify-content: center;
+}

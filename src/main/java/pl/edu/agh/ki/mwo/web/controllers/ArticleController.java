@@ -39,6 +39,7 @@ public class ArticleController {
     		@RequestParam(value="articleTopic", required=false) String articleTopic,
     		@RequestParam(value="participantId", required=false) String participantId,
     		@RequestParam(value="articleFile", required=false) MultipartFile articleFile,
+    		@RequestParam(value="moreThanOneArticle", required=false) boolean moreThanOneArticle,
     		Model model, HttpSession session) {
     	
     	Article article = new Article();
@@ -50,9 +51,13 @@ public class ArticleController {
 		try {
 	    	if(articleFile==null || articleFile.getBytes().length==0) {
 	    		model.addAttribute("message", "Nie załączono żadnej treści artykułu");
-	        	DatabaseConnector.getInstance().deleteParticipant(participantId);
-	        	model.addAttribute("alert2", "Nie załączyłeś pliku. Twoja rejestracja nie powiodła się");
-
+	        	if(DatabaseConnector.getInstance().getParticipant(participantId).getArticles().isEmpty()) {
+	        		DatabaseConnector.getInstance().deleteParticipant(participantId);
+		        	model.addAttribute("alert2", "Nie załączyłeś pliku. Twoja rejestracja nie powiodła się");
+	        	}
+	        	else {
+		        	model.addAttribute("alert2", "Nie załączyłeś kolejnego pliku. Poprzednie pliki zostały zachowane");
+	        	}
 	    			    		
 	    	}else {
 	        	DatabaseConnector.getInstance().addArticle(article, participantId);    	
@@ -63,6 +68,11 @@ public class ArticleController {
 				bytes = articleFile.getBytes();
 				Path path = Paths.get(pathInProject+((Long)article.getId()).toString()+".pdf");
 		        Files.write(path, bytes);
+		        
+		        if (moreThanOneArticle) {
+		        	model.addAttribute("participant", DatabaseConnector.getInstance().getParticipant(participantId));
+		        	return "addArticle";
+		        }
 	    	}
 		} catch (IOException e) {
 			e.printStackTrace();

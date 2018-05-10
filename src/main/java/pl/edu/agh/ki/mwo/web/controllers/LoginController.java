@@ -19,9 +19,16 @@ public class LoginController {
     }
 
 	@RequestMapping(value="/Login", method=RequestMethod.POST)
-	public String doLogin(@RequestParam(value="login") String login, Model model, HttpSession session) {
-		session.setAttribute("userLogin", login);
-		return "redirect:/Welcome";
+	public String doLogin(
+			@RequestParam(value="login") String login, @RequestParam(value="password") String password, 
+			Model model, HttpSession session) {
+		if (login.equals("edi") && password.equals("pass")) {
+			session.setAttribute("userLogin", login);
+			return "redirect:/Welcome";
+		} else {
+			model.addAttribute("alert", "Nieprawidłowy login lub hasło");
+			return "loginForm";
+		}
 	}
 
     @RequestMapping(value="/Welcome")

@@ -6,8 +6,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import pl.edu.agh.ki.mwo.model.Participant;
 import pl.edu.agh.ki.mwo.model.Article;
+import pl.edu.agh.ki.mwo.model.Participant;
+import pl.edu.agh.ki.mwo.model.Reviewer;
 
 public class DatabaseConnector {
 
@@ -32,6 +33,7 @@ public class DatabaseConnector {
 		instance = null;
 	}
 
+	//methods for Participant
 	public Iterable<Participant> getParticipants() {
 
 		String hql = "FROM Participant";
@@ -85,6 +87,7 @@ public class DatabaseConnector {
 		transaction.commit();
 	}
 	
+	//methods for Article
 	public Iterable<Article> getArticles() {
 		
 		String hql = "FROM Article";
@@ -172,5 +175,60 @@ public class DatabaseConnector {
 		session.update(author);
 		transaction.commit();
 	}
+	
+	//methods for Reviewer
+	public Iterable<Reviewer> getReviewers() {
+
+		String hql = "FROM Reviewer";
+		Query query = session.createQuery(hql);
+		List reviewers = query.list();
+
+		return reviewers;
+	}
+
+	public Reviewer getReviewer(String reviewerId) {
+		
+		String hql = "FROM Reviewer P WHERE P.id=" + reviewerId;
+		Query query = session.createQuery(hql);
+		List<Reviewer> results = query.list();
+		
+		return results.get(0);
+	}
+	
+	public void addReviewer(Reviewer reviewer) {
+		
+		Transaction transaction = session.beginTransaction();
+		session.save(reviewer);
+		transaction.commit();
+	}
+	
+	public void updateReviewer(String reviewerId,
+								  String reviewerName,
+								  String reviewerSurname,
+								  String reviewerTopic,
+								  String reviewerEmail) {
+
+		Reviewer reviewer = getReviewer(reviewerId);
+		reviewer.setName(reviewerName);
+		reviewer.setSurname(reviewerSurname);
+		reviewer.setTopic(reviewerTopic);
+		reviewer.setEmail(reviewerEmail);
+		
+		Transaction transaction = session.beginTransaction();
+		session.update(reviewer);
+		transaction.commit();
+	}
+	
+	public void deleteReviewer(String reviewerId) {
+		
+		String hql = "FROM Reviewer P WHERE P.id=" + reviewerId;
+		Query query = session.createQuery(hql);
+		List<Reviewer> results = query.list();
+		
+		Transaction transaction = session.beginTransaction();
+		session.delete(results.get(0));
+		transaction.commit();
+	}
+	
 
 }

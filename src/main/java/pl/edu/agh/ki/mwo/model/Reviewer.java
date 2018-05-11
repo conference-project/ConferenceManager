@@ -77,5 +77,9 @@ public class Reviewer implements java.io.Serializable {
 		this.articles = articles;
 	}
 
-	
+    public String toString() {
+		//return getName() + " " + getSurname() + ", topic: "+getTopic();
+		return getName() + " " + getSurname();
+
+	}
 }

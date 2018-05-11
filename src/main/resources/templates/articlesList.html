@@ -17,6 +17,7 @@
 						<th>temat</th>
 						<th>uczestnik</th>
 						<th>email</th>
+						<th>recenzent</th>
 						<th>ocena</th>
 						<th>link dla recenzenta</th>
 						<th>przyjety</th>
@@ -24,6 +25,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				<span>ok?</span>
 					<tr th:each="article: ${articles}">
 						<td><span th:text="${article.id}" /></td>
 						<td><span th:text="${article.title}" /></td>
@@ -31,7 +33,7 @@
 						<td><span th:text="${article.participant.name} + ' ' + ${article.participant.surname}" /></td>
 						<td><span th:text="${article.participant.email}" /></td>
 						<td><span th:if="${article.reviewer}" th:text="${article.reviewer}" />
-						    <form th:unless="${article.reviewer}"class="inline-block" action="SetReviewer" method="POST">
+						    <form th:unless="${article.reviewer}" class="inline-block" action="ChooseReviewer" method="POST">
 								<input type="hidden" name="articleId" th:value="${article.id}" />
 								<button class="btn btn-warning" type="submit">przydziel recenzenta</button>
 							</form></td>

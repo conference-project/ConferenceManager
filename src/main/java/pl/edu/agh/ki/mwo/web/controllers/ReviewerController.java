@@ -91,5 +91,38 @@ public class ReviewerController {
          	
     	return "reviewersList";
     }
-
+    
+    @RequestMapping(value="/ChooseReviewer", method=RequestMethod.POST)
+    public String chooseReviewer(
+    		@RequestParam(value="articleId", required=false) String articleId,
+    		Model model, HttpSession session) {
+    	    	
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	    	
+    	model.addAttribute("article", DatabaseConnector.getInstance().getArticle(articleId));
+    	model.addAttribute("reviewers", DatabaseConnector.getInstance().getReviewers());
+    	
+    	return "choosingReviewerForm";
+    }
+    
+    
+    @RequestMapping(value="/SetReviewer", method=RequestMethod.POST)
+    public String setReviewer(
+    		@RequestParam(value="reviewerId", required=false) String reviewerId,
+    		@RequestParam(value="reviewerName", required=false) String reviewerName,
+    		@RequestParam(value="reviewerSurname", required=false) String reviewerSurname,
+    		@RequestParam(value="reviewerTopic", required=false) String reviewerTopic,
+    		@RequestParam(value="reviewerEmail", required=false) String reviewerEmail,
+    		Model model, HttpSession session) {
+    	    	
+    	if (session.getAttribute("userLogin") == null)
+    		return "redirect:/Login";
+    	    	
+    	DatabaseConnector.getInstance().updateReviewer(reviewerId, reviewerName, reviewerSurname, reviewerTopic, reviewerEmail);    	
+       	model.addAttribute("reviewers", DatabaseConnector.getInstance().getReviewers());
+    	model.addAttribute("message", "Recenzent został wybrany");
+    	
+    	return "articlesList";
+    }
 }

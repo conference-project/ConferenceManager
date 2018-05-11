@@ -11,7 +11,8 @@
   <div class="container">
   <h2 class="custom-title">Wybór recenzenta artykułu</h2>
   	<form  class="border border-primary rounded custom-form" action="SetReviewer" method="POST">
-  	  <input type="hidden" name="articleId" th:value="${article.id}" />  	
+  	  <input type="hidden" name="articleId" th:value="${article.id}" />
+  	    	
   	  <div class="form-group">
         <label for="name">Tytuł</label>
         <input type="text" name="articleTitle" th:value="${article.title}" class="form-control" id="title"/>

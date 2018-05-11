@@ -105,22 +105,20 @@ public class ReviewerController {
     	
     	return "choosingReviewerForm";
     }
-    
-    
+        
     @RequestMapping(value="/SetReviewer", method=RequestMethod.POST)
     public String setReviewer(
-    		@RequestParam(value="reviewerId", required=false) String reviewerId,
-    		@RequestParam(value="reviewerName", required=false) String reviewerName,
-    		@RequestParam(value="reviewerSurname", required=false) String reviewerSurname,
-    		@RequestParam(value="reviewerTopic", required=false) String reviewerTopic,
-    		@RequestParam(value="reviewerEmail", required=false) String reviewerEmail,
+    		@RequestParam(value="articleId", required=true) String articleId,
+    		@RequestParam(value="reviewerId", required=true) String reviewerId,
     		Model model, HttpSession session) {
     	    	
     	if (session.getAttribute("userLogin") == null)
     		return "redirect:/Login";
-    	    	
-    	DatabaseConnector.getInstance().updateReviewer(reviewerId, reviewerName, reviewerSurname, reviewerTopic, reviewerEmail);    	
-       	model.addAttribute("reviewers", DatabaseConnector.getInstance().getReviewers());
+    	
+    	Reviewer reviewer = DatabaseConnector.getInstance().getReviewer(reviewerId);
+    	
+       	DatabaseConnector.getInstance().getArticle(articleId).setReviewer(reviewer);
+       	model.addAttribute("articles", DatabaseConnector.getInstance().getArticles());
     	model.addAttribute("message", "Recenzent został wybrany");
     	
     	return "articlesList";

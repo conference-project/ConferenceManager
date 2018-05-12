@@ -14,5 +14,7 @@
 	
 		<mapping class="pl.edu.agh.ki.mwo.model.Participant"/>
 		<mapping class="pl.edu.agh.ki.mwo.model.Article"/>
+		<mapping class="pl.edu.agh.ki.mwo.model.Reviewer"/>
+		
 	</session-factory>
 </hibernate-configuration>

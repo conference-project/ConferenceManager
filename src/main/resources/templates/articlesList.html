@@ -39,11 +39,11 @@
         <td>
           <form class="inline-block" action="DeleteArticle" method="DELETE">
             <input type="hidden" name="articleId" th:value="${article.id}"/>
-            <button class="btn btn-warning" type="submit">X</button>
+            <button class="btn btn-warning" type="submit" title="Usuń">X</button>
           </form>
           <form class="inline-block" action="UpdateArticle" method="POST">
             <input type="hidden" name="articleId" th:value="${article.id}"/>
-            <button class="btn btn-info" type="submit">Edit</button>
+            <button class="btn btn-info" type="submit">Edytuj</button>
           </form>
       
         </td>
@@ -51,7 +51,7 @@
       </tbody>
     </table>
 
-     <br/><a class="btn btn-primary" href="Start">dodaj</a><br/><br/>
+     <br/><a class="btn btn-primary" href="Start">Dodaj</a><br/><br/>
  
   </div>
 </div>

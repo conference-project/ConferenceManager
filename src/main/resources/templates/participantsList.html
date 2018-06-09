@@ -36,17 +36,17 @@
         <td>
           <form class="inline-block" action="DeleteParticipant" method="DELETE">
             <input type="hidden" name="participantId" th:value="${participant.id}"/>
-            <button class="btn btn-warning" type="submit">X</button>
+            <button class="btn btn-warning" type="submit" title="Usuń">X</button>
           </form>
           <form class="inline-block" action="UpdateParticipant" method="POST">
             <input type="hidden" name="participantId" th:value="${participant.id}"/>
-            <button class="btn btn-info" type="submit">Edit</button>
+            <button class="btn btn-info" type="submit">Edytuj</button>
           </form>
         </td>
       </tr>
       </tbody>
     </table>
-    <br/><a class="btn btn-primary" href='Start'>dodaj</a><br/><br/>
+    <br/><a class="btn btn-primary" href='Start'>Dodaj</a><br/><br/>
   </div>
 
 </div>
